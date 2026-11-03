@@ -9,3 +9,5 @@ venv/
 *.sqlite3
 *_backup.*
 *_before_cleanup.*
+
+/screenshots/
