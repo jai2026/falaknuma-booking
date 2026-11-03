@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Admin Login | Falaknuma</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="login-page">
+
+    <main class="login-card">
+
+        <a href="{{ url_for('home') }}"
+           class="admin-brand">
+            THE GRAND HERITAGE
+            <strong>FALAKNUMA</strong>
+            PALACE · HYDERABAD
+        </a>
+
+        <div class="gold-line"></div>
+
+        <span class="eyebrow">
+            PRIVATE ADMIN ACCESS
+        </span>
+
+        <h1>Welcome <em>Back.</em></h1>
+
+        <p class="muted">
+            Sign in to manage reservations
+            and hotel operations.
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="error" role="alert">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST"
+              action="{{ url_for('admin.login') }}">
+
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token }}">
+
+            <label for="username">USERNAME</label>
+            <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required>
+
+            <label for="password">PASSWORD</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required>
+
+            <button type="submit"
+                    class="primary-button">
+                SIGN IN →
+            </button>
+        </form>
+
+        <p class="disclaimer">
+            Independent educational prototype.
+            Not affiliated with Taj Hotels.
+        </p>
+
+    </main>
+
+</body>
+</html>

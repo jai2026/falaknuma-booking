@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Complete Your Reservation | Falaknuma</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/booking.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span>THE GRAND HERITAGE</span>
+            <strong>FALAKNUMA</strong>
+            <small>PALACE · HYDERABAD</small>
+        </a>
+
+        <a href="{{ url_for('availability',
+            checkin=checkin,
+            checkout=checkout,
+            guests=guests) }}"
+            class="back-link">
+            ← BACK TO ROOMS
+        </a>
+
+    </header>
+
+
+    <section class="page-heading">
+
+        <span class="eyebrow">
+            ✦ YOUR ROYAL JOURNEY ✦
+        </span>
+
+        <h1>
+            Complete Your <em>Reservation.</em>
+        </h1>
+
+        <p>
+            Just a few details stand between you
+            and an extraordinary royal escape.
+        </p>
+
+    </section>
+
+
+    <main class="booking-layout">
+
+        <section class="form-panel">
+
+            <span class="section-label">
+                01 — GUEST INFORMATION
+            </span>
+
+            <h2>Your Details</h2>
+
+            <p class="form-intro">
+                Please provide the primary guest's
+                information to confirm your stay.
+            </p>
+
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    <p class="error-message" role="alert">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            {% endwith %}
+
+            <form
+                action="{{ url_for('book_room', room_id=room.id) }}"
+                method="POST">
+
+                <input type="hidden"
+                       name="csrf_token"
+                       value="{{ csrf_token }}">
+
+                <input type="hidden"
+                       name="checkin"
+                       value="{{ checkin }}">
+
+                <input type="hidden"
+                       name="checkout"
+                       value="{{ checkout }}">
+
+                <input type="hidden"
+                       name="guests"
+                       value="{{ guests }}">
+
+                <div class="form-field">
+
+                    <label for="guest_name">
+                        FULL NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="guest_name"
+                        name="guest_name"
+                        placeholder="Enter your full name"
+                        minlength="2"
+                        maxlength="100"
+                        value="{{ request.form.get('guest_name', '') }}"
+                        autocomplete="name"
+                        required>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="guest_email">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="guest_email"
+                        name="guest_email"
+                        placeholder="Enter your email address"
+                        maxlength="254"
+                        value="{{ request.form.get('guest_email', '') }}"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="guest_phone">
+                        PHONE NUMBER
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="guest_phone"
+                        name="guest_phone"
+                        placeholder="9876543210"
+                        pattern="\+?[0-9]{10,15}"
+                        value="{{ request.form.get('guest_phone', '') }}"
+                        autocomplete="tel"
+                        required>
+
+                </div>
+
+                <div class="notice">
+                    <strong>Reservation Notice</strong>
+
+                    <p>
+                        This is an educational hotel booking
+                        demonstration. No payment is collected
+                        and no reservation is made with the
+                        actual Taj Falaknuma Palace.
+                    </p>
+                </div>
+
+                <button
+                    type="submit"
+                    class="confirm-button">
+                    CONFIRM RESERVATION →
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <aside class="summary-panel">
+
+            <img
+                src="{{ url_for('static', filename=room.image) }}"
+                alt="{{ room.name }}"
+                class="summary-image">
+
+            <div class="summary-content">
+
+                <span class="section-label">
+                    YOUR SELECTED ACCOMMODATION
+                </span>
+
+                <h2>{{ room.name }}</h2>
+
+                <p class="room-category">
+                    {{ room.category }}
+                </p>
+
+                <div class="summary-row">
+                    <span>Check-in</span>
+                    <strong>{{ checkin }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Check-out</span>
+                    <strong>{{ checkout }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Guests</span>
+                    <strong>{{ guests }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Duration</span>
+                    <strong>
+                        {{ nights }}
+                        {{ "Night" if nights == 1 else "Nights" }}
+                    </strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Price per night</span>
+                    <strong>
+                        ₹{{ "{:,}".format(room.price) }}
+                    </strong>
+                </div>
+
+                <div class="summary-total">
+
+                    <span>TOTAL STAY PRICE</span>
+
+                    <strong>
+                        ₹{{ "{:,}".format(total_price) }}
+                    </strong>
+
+                    <small>
+                        Demonstration amount.
+                        No payment is processed.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <footer class="footer">
+        <strong>FALAKNUMA</strong>
+        <p>
+            INDEPENDENT EDUCATIONAL PROJECT ·
+            NOT AN OFFICIAL HOTEL BOOKING WEBSITE
+        </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Admin Dashboard | Falaknuma</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="admin-body">
+
+    <aside class="sidebar">
+
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="sidebar-brand">
+            <small>THE GRAND HERITAGE</small>
+            <strong>FALAKNUMA</strong>
+            <small>ADMINISTRATION</small>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a class="active"
+               href="{{ url_for('admin.dashboard') }}">
+                ◈ Dashboard
+            </a>
+
+            <a href="{{ url_for('admin.reservations') }}">
+                ▤ Reservations
+            </a>
+
+            <a href="{{ url_for('home') }}">
+                ↗ View Website
+            </a>
+            <a href="{{ url_for('admin.rooms') }}">
+    ◇ Room Management
+</a>
+        </nav>
+
+        <form method="POST"
+              action="{{ url_for('admin.logout') }}"
+              class="logout-form">
+
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token }}">
+
+            <button type="submit">
+                ↩ Sign Out
+            </button>
+        </form>
+
+    </aside>
+
+    <main class="admin-main">
+
+        <div class="topbar">
+            <div>
+                <span class="eyebrow">HOTEL OVERVIEW</span>
+                <h1>Royal <em>Dashboard.</em></h1>
+            </div>
+
+            <span class="admin-tag">ADMIN PANEL</span>
+        </div>
+
+        <p class="muted">
+            A snapshot of your demonstration
+            hotel's reservations and inventory.
+        </p>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+    <span>CURRENTLY CHECKED IN</span>
+    <strong>{{ stats.checked_in }}</strong>
+    <small>Arrivals without recorded checkout</small>
+</div>
+
+<div class="stat-card">
+    <span>RECORDED CHECKOUTS</span>
+    <strong>{{ stats.checked_out }}</strong>
+    <small>Completed guest departures</small>
+</div>
+
+            <div class="stat-card">
+                <span>TOTAL ROOM UNITS</span>
+                <strong>{{ stats.total_rooms }}</strong>
+                <small>Across all categories</small>
+            </div>
+
+            <div class="stat-card">
+                <span>TOTAL RESERVATIONS</span>
+                <strong>{{ stats.total_bookings }}</strong>
+                <small>All recorded bookings</small>
+            </div>
+
+            <div class="stat-card">
+                <span>CONFIRMED BOOKINGS</span>
+                <strong>{{ stats.confirmed }}</strong>
+                <small>Including future stays</small>
+            </div>
+
+            <div class="stat-card">
+                <span>CANCELLED BOOKINGS</span>
+                <strong>{{ stats.cancelled }}</strong>
+                <small>Cancellation history</small>
+            </div>
+
+            <div class="stat-card">
+                <span>OCCUPIED TODAY</span>
+                <strong>{{ stats.occupied }}</strong>
+                <small>Based on reservation dates</small>
+            </div>
+
+            <div class="stat-card">
+                <span>AVAILABLE TODAY</span>
+                <strong>{{ stats.available_today }}</strong>
+                <small>Room units not reserved today</small>
+            </div>
+
+        </section>
+
+        <section class="data-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">
+                        RESERVATION ACTIVITY
+                    </span>
+                    <h2>Recent Bookings</h2>
+                </div>
+
+                <a href="{{ url_for('admin.reservations') }}"
+                   class="text-link">
+                    VIEW ALL →
+                </a>
+            </div>
+
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>REFERENCE</th>
+                            <th>GUEST</th>
+                            <th>ROOM</th>
+                            <th>CHECK-IN</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for booking in recent %}
+                        <tr>
+                            <td>
+                                {{ booking.booking_reference }}
+                            </td>
+
+                            <td>{{ booking.guest_name }}</td>
+
+                            <td>{{ booking.room_name }}</td>
+
+                            <td>{{ booking.checkin }}</td>
+
+                            <td>
+                                <span class="status {{ booking.status }}">
+                                    {{ booking.status|upper }}
+                                </span>
+                            </td>
+                        </tr>
+
+                        {% else %}
+                        <tr>
+                            <td colspan="5">
+                                No reservations recorded yet.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

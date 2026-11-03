@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="An independent heritage-inspired luxury hotel booking demonstration.">
+
+    <title>Falaknuma Palace | A Royal Experience</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS FILES -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/heritage_upgrade.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/palace_story.css') }}?v=2">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="{{ url_for('home') }}" class="logo">
+            <span class="logo-small">THE GRAND HERITAGE</span>
+            <span class="logo-main">FALAKNUMA</span>
+            <span class="logo-bottom">PALACE · HYDERABAD</span>
+        </a>
+
+        
+<nav class="nav-links" aria-label="Main navigation">
+
+    <a href="#experience">The Experience</a>
+
+    <a href="#rooms">Rooms & Suites</a>
+
+    <a href="#heritage">Our Heritage</a>
+
+    <a href="{{ url_for('manage_booking') }}">
+        Manage Booking
+    </a>
+
+    <a href="{{ url_for('admin.login') }}"
+       class="admin-nav-link">
+        Admin Login
+    </a>
+
+</nav>
+
+
+        <a href="#reservation" class="nav-button">
+            RESERVE YOUR STAY
+        </a>
+
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false">
+            ☰
+        </button>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="top">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <span class="eyebrow">
+                ✦ &nbsp; A PALACE ABOVE THE CLOUDS &nbsp; ✦
+            </span>
+
+            <h1>
+                Where Royalty<br>
+                <em>Finds Its Home.</em>
+            </h1>
+
+            <p>
+                Discover a world of timeless elegance,
+                royal traditions and extraordinary
+                heritage-inspired hospitality.
+            </p>
+
+            <a href="#experience" class="hero-link">
+                DISCOVER THE PALACE
+                <span>→</span>
+            </a>
+
+        </div>
+
+        <div class="hero-bottom">
+            <span>HYDERABAD · TELANGANA</span>
+            <span>INDIA</span>
+        </div>
+
+    </section>
+
+
+    <!-- RESERVATION BAR -->
+    <section class="reservation-wrapper" id="reservation">
+
+        <form
+            class="reservation-bar"
+            id="reservationForm"
+            action="{{ url_for('availability') }}"
+            method="GET">
+
+            <div class="booking-field">
+                <label for="checkin">CHECK IN</label>
+
+                <input
+                    type="date"
+                    id="checkin"
+                    name="checkin"
+                    required>
+            </div>
+
+            <div class="booking-divider"></div>
+
+            <div class="booking-field">
+                <label for="checkout">CHECK OUT</label>
+
+                <input
+                    type="date"
+                    id="checkout"
+                    name="checkout"
+                    required>
+            </div>
+
+            <div class="booking-divider"></div>
+
+            <div class="booking-field">
+                <label for="guests">GUESTS</label>
+
+                <select id="guests" name="guests">
+                    <option value="1">1 Guest</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5 Guests</option>
+                    <option value="6">6 Guests</option>
+                </select>
+            </div>
+
+            <button type="submit" class="booking-button">
+                CHECK AVAILABILITY
+                <span>→</span>
+            </button>
+
+        </form>
+
+        <p
+            class="booking-message"
+            id="bookingMessage"
+            role="status"
+            aria-live="polite">
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p
+                        class="booking-message"
+                        role="alert"
+                        style="color: #8b2635;">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    </section>
+
+
+    <!-- INTRODUCTION -->
+    <section class="introduction" id="experience">
+
+        <div class="intro-label">
+            <span>01</span>
+            <span>THE ART OF ROYAL LIVING</span>
+        </div>
+
+        <div class="intro-content">
+
+            <h2>
+                An address that<br>
+                <em>transcends time.</em>
+            </h2>
+
+            <div class="intro-description">
+
+                <p>
+                    Inspired by Hyderabad's magnificent
+                    palace heritage, this concept brings
+                    together architectural grandeur,
+                    refined interiors and the timeless
+                    beauty of royal hospitality.
+                </p>
+
+                <a href="#heritage" class="text-link">
+                    EXPLORE OUR STORY &nbsp; →
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="intro-image">
+            <img
+                src="{{ url_for('static', filename='images/palace-heritage.jpg') }}"
+                alt="Heritage palace architecture"
+                loading="lazy">
+        </div>
+
+    </section>
+
+
+    <!-- ROOMS AND SUITES -->
+    <section class="rooms-section" id="rooms">
+
+        <div class="heritage-collection-heading heritage-reveal">
+
+            <span class="heritage-eyebrow">
+                02 — THE ACCOMMODATION COLLECTION
+            </span>
+
+            <h2 class="heritage-heading">
+                Rooms of <em>Distinction.</em>
+            </h2>
+
+            <div class="heritage-divider"></div>
+
+            <p class="heritage-copy">
+                Discover thoughtfully imagined rooms and
+                suites, each combining heritage-inspired
+                elegance with contemporary comfort.
+            </p>
+
+        </div>
+
+
+        <!-- DYNAMIC ROOM CARDS -->
+        <div class="rooms-grid">
+
+            {% for room in rooms %}
+
+            <article class="room-card">
+
+                <div class="room-image">
+
+                    <img
+                        src="{{ url_for('static', filename=room.image) }}"
+                        alt="{{ room.name }} interior"
+                        loading="lazy">
+
+                    <span class="room-number">
+                        {{ "%02d"|format(loop.index) }}
+                    </span>
+
+                </div>
+
+                <div class="room-info">
+
+                    <span class="room-category">
+                        {{ room.category }}
+                    </span>
+
+                    <h3>{{ room.name }}</h3>
+
+                    <div class="room-details">
+
+                        <span>
+                            <span aria-hidden="true">♙</span>
+                            Up to {{ room.guests }} Guests
+                        </span>
+
+                        <span>
+                            <span aria-hidden="true">✧</span>
+                            Heritage Collection
+                        </span>
+
+                    </div>
+
+                    {% if room.description %}
+                    <p class="room-description">
+                        {{ room.description }}
+                    </p>
+                    {% endif %}
+
+                    <div class="room-footer">
+
+                        <div>
+
+                            <span class="price-label">
+                                STARTING FROM
+                            </span>
+
+                            <p>
+                                ₹{{ "{:,}".format(room.price) }}
+                                <small>/ NIGHT</small>
+                            </p>
+
+                        </div>
+
+                        <a
+                            href="{{ url_for('room_details', room_id=room.id) }}"
+                            class="room-button"
+                            aria-label="Explore {{ room.name }}">
+                            EXPLORE →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="rooms-bottom">
+
+            <a href="#reservation" class="all-rooms-link">
+                DISCOVER YOUR PERFECT STAY &nbsp; →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- SINGLE PREMIUM HERITAGE SECTION -->
+    <section id="heritage" class="fp-story">
+
+        <div class="fp-story-container">
+
+            <!-- LEFT: EDITORIAL TEXT -->
+            <div class="fp-story-content">
+
+                <span class="fp-story-label">
+                    03 — THE PALACE EXPERIENCE
+                </span>
+
+                <h2>
+                    Where Heritage
+                    <em>Meets Elegance.</em>
+                </h2>
+
+                <div class="fp-story-line"></div>
+
+                <p class="fp-story-lead">
+                    A timeless expression of
+                    Hyderabad's royal grandeur.
+                </p>
+
+                <p class="fp-story-description">
+                    Inspired by the artistry and
+                    architectural beauty of the city's
+                    historic palaces, our heritage-inspired
+                    concept brings together refined interiors,
+                    thoughtful details, and an atmosphere
+                    of quiet luxury.
+                </p>
+
+                <a href="#reservation" class="fp-story-link">
+                    EXPLORE YOUR STAY
+                    <span aria-hidden="true">↗</span>
+                </a>
+
+            </div>
+
+            <!-- RIGHT: ONLY ONE IMAGE -->
+            <div class="fp-story-photo">
+
+                <img
+                    src="{{ url_for('static', filename='images/palace-interior.jpg') }}"
+                    alt="Elegant heritage palace interior"
+                    loading="lazy">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <span class="logo-small">
+                    THE GRAND HERITAGE
+                </span>
+
+                <h2>FALAKNUMA</h2>
+
+                <span class="logo-bottom">
+                    PALACE · HYDERABAD
+                </span>
+
+            </div>
+
+            <div class="footer-message">
+
+                <p>
+                    Some places are visited.<br>
+                    Others are remembered forever.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#experience">Experience</a>
+
+                <a href="#rooms">Accommodation</a>
+
+                <a href="#heritage">Our Heritage</a>
+
+                <a href="#reservation">Reservations</a>
+
+                <a href="{{ url_for('manage_booking') }}">
+                    Manage Booking
+                </a>
+                <a href="{{ url_for('admin.login') }}">
+    Staff Login
+</a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 FALAKNUMA —
+                INDEPENDENT EDUCATIONAL PROJECT
+            </span>
+
+            <span>
+                NOT AN OFFICIAL HOTEL BOOKING WEBSITE
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script
+        src="{{ url_for('static', filename='js/main.js') }}">
+    </script>
+
+    <script
+        defer
+        src="{{ url_for('static', filename='js/heritage-upgrade.js') }}">
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+*_backup.*
+*_before_cleanup.*

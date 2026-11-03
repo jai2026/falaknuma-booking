@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Reservation Details | Falaknuma Admin</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="admin-body">
+
+    <aside class="sidebar">
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="sidebar-brand">
+            <small>THE GRAND HERITAGE</small>
+            <strong>FALAKNUMA</strong>
+            <small>ADMINISTRATION</small>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('admin.dashboard') }}">
+                ◈ Dashboard
+            </a>
+            <a class="active"
+               href="{{ url_for('admin.reservations') }}">
+                ▤ Reservations
+            </a>
+            <a href="{{ url_for('admin.rooms') }}">
+                ◇ Room Management
+            </a>
+        </nav>
+
+        <form method="POST"
+              action="{{ url_for('admin.logout') }}"
+              class="logout-form">
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token }}">
+            <button type="submit">↩ Sign Out</button>
+        </form>
+    </aside>
+
+    <main class="admin-main">
+
+        <a class="text-link"
+           href="{{ url_for('admin.reservations') }}">
+            ← BACK TO RESERVATIONS
+        </a>
+
+        <div class="topbar">
+            <div>
+                <span class="eyebrow">GUEST OPERATIONS</span>
+                <h1>Reservation <em>Details.</em></h1>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="admin-notice" role="status">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="data-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">
+                        BOOKING REFERENCE
+                    </span>
+                    <h2>{{ booking.booking_reference }}</h2>
+                </div>
+
+                <span class="status {{ booking.status }}">
+                    {{ booking.status|upper }}
+                </span>
+            </div>
+
+            <div class="guest-detail-grid">
+                <div>
+                    <span>GUEST NAME</span>
+                    <strong>{{ booking.guest_name }}</strong>
+                </div>
+                <div>
+                    <span>EMAIL</span>
+                    <strong>{{ booking.guest_email }}</strong>
+                </div>
+                <div>
+                    <span>PHONE</span>
+                    <strong>{{ booking.guest_phone or 'N/A' }}</strong>
+                </div>
+                <div>
+                    <span>ROOM CATEGORY</span>
+                    <strong>{{ booking.room_name }}</strong>
+                </div>
+                <div>
+                    <span>CHECK-IN DATE</span>
+                    <strong>{{ booking.checkin }}</strong>
+                </div>
+                <div>
+                    <span>CHECK-OUT DATE</span>
+                    <strong>{{ booking.checkout }}</strong>
+                </div>
+                <div>
+                    <span>NUMBER OF GUESTS</span>
+                    <strong>{{ booking.guests }}</strong>
+                </div>
+                <div>
+                    <span>CURRENT NIGHTLY RATE</span>
+                    <strong>
+                        ₹{{ "{:,}".format(booking.room_price) }}
+                    </strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-panel">
+            <span class="eyebrow">ARRIVAL & DEPARTURE</span>
+            <h2>Guest Stay Status</h2>
+
+            {% if booking.status == "cancelled" %}
+                <p class="muted">
+                    This reservation has been cancelled.
+                </p>
+
+            {% elif booking.checked_out_at %}
+                <p class="operation-success">
+                    ✓ Guest Checked Out
+                </p>
+                <p class="muted">
+                    Departure: {{ booking.checked_out_at }}
+                </p>
+
+            {% elif booking.checked_in_at %}
+                <p class="operation-success">
+                    ✓ Guest Checked In
+                </p>
+                <p class="muted">
+                    Arrival: {{ booking.checked_in_at }}
+                </p>
+
+                {% if checkout_allowed %}
+                <form method="POST"
+                      action="{{ url_for('admin.guest_operation', booking_id=booking.id, action='checkout') }}"
+                      onsubmit="return confirm('Confirm guest checkout?')">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token }}">
+
+                    <button type="submit"
+                            class="primary-button">
+                        MARK AS CHECKED OUT →
+                    </button>
+                </form>
+                {% endif %}
+
+            {% else %}
+                <p class="muted">
+                    Guest has not checked in yet.
+                </p>
+
+                {% if checkin_allowed %}
+                <form method="POST"
+                      action="{{ url_for('admin.guest_operation', booking_id=booking.id, action='checkin') }}"
+                      onsubmit="return confirm('Confirm guest arrival?')">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token }}">
+
+                    <button type="submit"
+                            class="primary-button">
+                        MARK AS CHECKED IN →
+                    </button>
+                </form>
+                {% else %}
+                <p class="muted">
+                    Check-in is not available for this
+                    reservation on the current date.
+                </p>
+                {% endif %}
+            {% endif %}
+        </section>
+
+    </main>
+</body>
+</html>

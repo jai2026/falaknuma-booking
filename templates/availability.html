@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Available Rooms | Falaknuma Palace</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/availability.css') }}">
+
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('home') }}"
+           class="brand">
+            <span>THE GRAND HERITAGE</span>
+            <strong>FALAKNUMA</strong>
+            <small>PALACE · HYDERABAD</small>
+        </a>
+
+        <a href="{{ url_for('home') }}"
+           class="back-link">
+            ← BACK TO PALACE
+        </a>
+
+    </header>
+
+
+    <section class="page-heading">
+
+        <span class="eyebrow">
+            ✦ YOUR ROYAL ESCAPE ✦
+        </span>
+
+        <h1>
+            Available <em>Rooms & Suites.</em>
+        </h1>
+
+        <p>
+            Discover your perfect stay among our
+            heritage-inspired accommodations.
+        </p>
+
+    </section>
+
+
+    <section class="search-summary">
+
+        <div>
+            <span>CHECK IN</span>
+            <strong>{{ checkin }}</strong>
+        </div>
+
+        <div>
+            <span>CHECK OUT</span>
+            <strong>{{ checkout }}</strong>
+        </div>
+
+        <div>
+            <span>GUESTS</span>
+            <strong>{{ guests }}</strong>
+        </div>
+
+        <div>
+            <span>DURATION</span>
+            <strong>
+                {{ nights }}
+                {{ "Night" if nights == 1 else "Nights" }}
+            </strong>
+        </div>
+
+        <a href="{{ url_for('home') }}#reservation">
+            MODIFY SEARCH →
+        </a>
+
+    </section>
+
+
+    <main class="results-section">
+
+        <div class="results-heading">
+
+            <span class="section-label">
+                01 — YOUR AVAILABLE ACCOMMODATIONS
+            </span>
+
+            <h2>
+                A stay worth <em>remembering.</em>
+            </h2>
+
+            <p>
+                {{ rooms|length }}
+                room
+                {{ "category" if rooms|length == 1 else "categories" }}
+                available for your search.
+            </p>
+
+        </div>
+
+
+        {% if rooms %}
+
+        <div class="room-list">
+
+            {% for room in rooms %}
+
+            <article class="room-card">
+
+                <div class="room-image">
+
+                    <img
+                        src="{{ url_for('static', filename=room.image) }}"
+                        alt="{{ room.name }}">
+
+                </div>
+
+                <div class="room-content">
+
+                    <span class="category">
+                        {{ room.category }}
+                    </span>
+
+                    <h3>{{ room.name }}</h3>
+
+                    <p class="description">
+                        {{ room.description }}
+                    </p>
+
+                    <div class="room-features">
+
+                        <span>
+                            ♙ Up to {{ room.guests }} Guests
+                        </span>
+
+                        <span>
+                            ✧ {{ room.size }}
+                        </span>
+
+                        <span>
+                            ✦ {{ room.bed }}
+                        </span>
+
+                    </div>
+
+                    <p class="availability-count">
+                        {{ room.available_count }}
+                        {{ "room" if room.available_count == 1 else "rooms" }}
+                        available
+                    </p>
+
+                    <div class="room-bottom">
+
+                        <div class="price">
+
+                            <span>PRICE PER NIGHT</span>
+
+                            <strong>
+                                ₹{{ "{:,}".format(room.price) }}
+                            </strong>
+
+                            <p>
+                                Total for {{ nights }}
+                                {{ "night" if nights == 1 else "nights" }}:
+                                ₹{{ "{:,}".format(room.total_price) }}
+                            </p>
+
+                        </div>
+
+                        
+<div class="booking-actions">
+
+    <a
+        href="{{ url_for('room_details', room_id=room.id) }}"
+        class="view-details-link">
+        VIEW DETAILS
+    </a>
+
+    <a
+        href="{{ url_for('book_room',
+            room_id=room.id,
+            checkin=checkin,
+            checkout=checkout,
+            guests=guests) }}"
+        class="details-button">
+        BOOK NOW →
+    </a>
+
+</div>
+
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-results">
+
+            <h2>No rooms available</h2>
+
+            <p>
+                We couldn't find accommodation for
+                your selected dates and guest count.
+                Please try another search.
+            </p>
+
+            <a href="{{ url_for('home') }}#reservation"
+               class="details-button">
+                CHANGE DATES →
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </main>
+
+
+    <footer class="footer">
+
+        <strong>FALAKNUMA</strong>
+
+        <p>
+            INDEPENDENT EDUCATIONAL PROJECT ·
+            NOT AN OFFICIAL HOTEL BOOKING WEBSITE
+        </p>
+
+    </footer>
+
+</body>
+</html>

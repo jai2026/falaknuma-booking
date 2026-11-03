@@ -1,0 +1,381 @@
+
+:root {
+    --ivory: #f8f5ee;
+    --cream: #eee7d9;
+    --burgundy: #521e2b;
+    --gold: #a7864d;
+    --dark: #28221f;
+    --muted: #77716a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--dark);
+    font-family: "DM Sans", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 7%;
+    border-bottom: 1px solid #ded6c8;
+    background: #fffdf8;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.brand span,
+.brand small {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
+
+.brand strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    letter-spacing: 4px;
+    color: var(--burgundy);
+}
+
+.back-link {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--burgundy);
+}
+
+.page-heading {
+    text-align: center;
+    padding: 80px 20px 55px;
+}
+
+.eyebrow,
+.section-label,
+.category {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.page-heading h1,
+.results-heading h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(42px, 6vw, 74px);
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.page-heading em,
+.results-heading em {
+    color: var(--burgundy);
+    font-weight: 400;
+}
+
+.page-heading p,
+.results-heading p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.search-summary {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: #fffdf8;
+    border: 1px solid #e7dece;
+}
+
+.search-summary div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-summary span,
+.price span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+.search-summary strong {
+    font-size: 14px;
+}
+
+.search-summary a {
+    color: var(--burgundy);
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.results-section {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 80px 0 110px;
+}
+
+.results-heading {
+    margin-bottom: 40px;
+}
+
+.results-heading h2 {
+    font-size: clamp(36px, 5vw, 55px);
+}
+
+.room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.room-card {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    background: #fffdf8;
+    border: 1px solid #e9e1d4;
+    overflow: hidden;
+}
+
+.room-image {
+    min-height: 370px;
+}
+
+.room-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-content {
+    padding: 35px 40px;
+}
+
+.room-content h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 42px;
+    font-weight: 500;
+    margin: 12px 0;
+}
+
+.description {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+.room-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 25px 0;
+    color: #655c52;
+    font-size: 12px;
+}
+
+.availability-count {
+    color: #357454;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.room-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid #e7dece;
+    margin-top: 25px;
+    padding-top: 22px;
+}
+
+.price {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.price strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 33px;
+    color: var(--burgundy);
+}
+
+.price p {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+}
+
+.details-button {
+    display: inline-block;
+    padding: 16px 20px;
+    background: var(--burgundy);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.details-button:hover {
+    background: #793349;
+}
+
+.empty-results {
+    padding: 65px 25px;
+    background: white;
+    text-align: center;
+    border: 1px solid #e9e1d4;
+}
+
+.empty-results h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 42px;
+}
+
+.empty-results p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.footer {
+    text-align: center;
+    background: var(--burgundy);
+    color: white;
+    padding: 45px 20px;
+}
+
+.footer strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    letter-spacing: 4px;
+}
+
+.footer p {
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    margin-top: 15px;
+}
+
+@media (max-width: 900px) {
+    .search-summary {
+        margin: 0 20px;
+        flex-wrap: wrap;
+    }
+
+    .results-section {
+        padding: 60px 20px;
+    }
+
+    .room-card {
+        grid-template-columns: 1fr;
+    }
+
+    .room-image {
+        height: 280px;
+        min-height: 0;
+    }
+
+    .room-content {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 520px) {
+    .navbar {
+        padding: 20px;
+    }
+
+    .brand strong {
+        font-size: 23px;
+    }
+
+    .back-link {
+        font-size: 9px;
+    }
+
+    .search-summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search-summary a {
+        grid-column: 1 / -1;
+    }
+
+    .room-content h3 {
+        font-size: 34px;
+    }
+
+    .room-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .details-button {
+        width: 100%;
+    }
+}
+
+/* PHASE 5 — BOOKING ACTIONS */
+
+.booking-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.view-details-link {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--burgundy);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 5px;
+}
+
+@media (max-width: 520px) {
+    .booking-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .view-details-link {
+        text-align: center;
+        padding: 12px;
+    }
+}

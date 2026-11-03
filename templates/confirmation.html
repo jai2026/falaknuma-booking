@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Confirmation | Falaknuma</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/booking.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span>THE GRAND HERITAGE</span>
+            <strong>FALAKNUMA</strong>
+            <small>PALACE · HYDERABAD</small>
+        </a>
+
+        <a href="{{ url_for('home') }}"
+           class="back-link">
+            ← BACK TO HOME
+        </a>
+
+    </header>
+
+
+    <main class="confirmation-container">
+
+        <div class="success-symbol">✓</div>
+
+        <span class="eyebrow">
+            ✦ RESERVATION CONFIRMED ✦
+        </span>
+
+        <h1>
+            Your Royal <em>Stay Awaits.</em>
+        </h1>
+
+        <p class="confirmation-intro">
+            Your demonstration reservation has
+            been successfully recorded.
+        </p>
+
+
+        <section class="confirmation-card">
+
+            <div class="confirmation-top">
+
+                <span>BOOKING REFERENCE</span>
+
+                <h2>{{ booking.booking_reference }}</h2>
+
+                <p>
+                    Please save this reference
+                    for your records.
+                </p>
+
+            </div>
+
+
+            <div class="confirmation-details">
+
+                <div class="summary-row">
+                    <span>Guest Name</span>
+                    <strong>{{ booking.guest_name }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Room</span>
+                    <strong>{{ booking.room_name }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Check-in</span>
+                    <strong>{{ booking.checkin }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Check-out</span>
+                    <strong>{{ booking.checkout }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Guests</span>
+                    <strong>{{ booking.guests }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Duration</span>
+                    <strong>
+                        {{ nights }}
+                        {{ "Night" if nights == 1 else "Nights" }}
+                    </strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Status</span>
+                    <strong class="status-confirmed">
+                        {{ booking.status|upper }}
+                    </strong>
+                </div>
+
+                <div class="summary-total">
+
+                    <span>TOTAL STAY PRICE</span>
+
+                    <strong>
+                        ₹{{ "{:,}".format(total_price) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="confirmation-actions">
+
+            <a href="{{ url_for('home') }}"
+               class="confirm-button">
+                RETURN TO HOMEPAGE →
+            </a>
+
+        </div>
+
+        <p class="disclaimer">
+            This confirmation applies only to the
+            educational demonstration system.
+            It is not a reservation at the
+            actual Taj Falaknuma Palace.
+            No payment has been collected.
+        </p>
+
+    </main>
+
+
+    <footer class="footer">
+        <strong>FALAKNUMA</strong>
+        <p>
+            INDEPENDENT EDUCATIONAL PROJECT ·
+            NOT AN OFFICIAL HOTEL BOOKING WEBSITE
+        </p>
+    </footer>
+
+</body>
+</html>

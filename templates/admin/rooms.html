@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Room Management | Falaknuma</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="admin-body">
+
+    <aside class="sidebar">
+
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="sidebar-brand">
+            <small>THE GRAND HERITAGE</small>
+            <strong>FALAKNUMA</strong>
+            <small>ADMINISTRATION</small>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('admin.dashboard') }}">
+                ◈ Dashboard
+            </a>
+
+            <a href="{{ url_for('admin.reservations') }}">
+                ▤ Reservations
+            </a>
+
+            <a class="active"
+               href="{{ url_for('admin.rooms') }}">
+                ◇ Room Management
+            </a>
+
+            <a href="{{ url_for('home') }}">
+                ↗ View Website
+            </a>
+        </nav>
+
+        <form method="POST"
+              action="{{ url_for('admin.logout') }}"
+              class="logout-form">
+
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token }}">
+
+            <button type="submit">
+                ↩ Sign Out
+            </button>
+        </form>
+
+    </aside>
+
+    <main class="admin-main">
+
+        <div class="topbar">
+            <div>
+                <span class="eyebrow">
+                    HOTEL INVENTORY
+                </span>
+
+                <h1>Room <em>Management.</em></h1>
+            </div>
+
+            <span class="admin-tag">
+                ADMIN PANEL
+            </span>
+        </div>
+
+        <p class="muted">
+            Manage nightly rates and inventory
+            across all room categories.
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="admin-notice" role="status">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="room-admin-grid">
+
+            {% for room in rooms %}
+
+            <article class="room-admin-card">
+
+                <img
+                    src="{{ url_for('static', filename=room.image) }}"
+                    alt="{{ room.name }}"
+                    class="room-admin-image">
+
+                <div class="room-admin-content">
+
+                    <span class="eyebrow">
+                        {{ room.category }}
+                    </span>
+
+                    <h2>{{ room.name }}</h2>
+
+                    <div class="room-admin-info">
+                        <p>
+                            Nightly Rate
+                            <strong>
+                                ₹{{ "{:,}".format(room.price) }}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Total Units
+                            <strong>
+                                {{ room.total_rooms }}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Occupied Today
+                            <strong>
+                                {{ room.occupied_today }}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Capacity
+                            <strong>
+                                {{ room.guests }} Guests
+                            </strong>
+                        </p>
+                    </div>
+
+                    <a
+                      href="{{ url_for('admin.edit_room', room_id=room.id) }}"
+                      class="primary-button room-edit-link">
+                        EDIT ROOM →
+                    </a>
+
+                </div>
+            </article>
+
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+</body>
+</html>

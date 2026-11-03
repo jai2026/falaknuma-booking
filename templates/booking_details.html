@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Your Reservation | Falaknuma</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/booking.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/manage_booking.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span>THE GRAND HERITAGE</span>
+            <strong>FALAKNUMA</strong>
+            <small>PALACE · HYDERABAD</small>
+        </a>
+
+        <a href="{{ url_for('manage_booking') }}"
+           class="back-link">
+            ← FIND ANOTHER BOOKING
+        </a>
+
+    </header>
+
+
+    <main class="reservation-container">
+
+        <div class="page-heading">
+
+            <span class="eyebrow">
+                ✦ RESERVATION DETAILS ✦
+            </span>
+
+            <h1>
+                Your Royal <em>Reservation.</em>
+            </h1>
+
+            <p>
+                Review your stay details and
+                manage your reservation.
+            </p>
+
+        </div>
+
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="notice" role="status">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endwith %}
+
+
+        <section class="confirmation-card">
+
+            <div class="confirmation-top">
+
+                <span>BOOKING REFERENCE</span>
+
+                <h2>
+                    {{ booking.booking_reference }}
+                </h2>
+
+                {% if booking.status == "confirmed" %}
+
+                    <p class="status-confirmed">
+                        ● CONFIRMED RESERVATION
+                    </p>
+
+                {% else %}
+
+                    <p class="status-cancelled">
+                        ● CANCELLED RESERVATION
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="reservation-room">
+
+                <img
+                    src="{{ url_for('static', filename=booking.room_image) }}"
+                    alt="{{ booking.room_name }}">
+
+                <div>
+                    <span class="section-label">
+                        {{ booking.room_category }}
+                    </span>
+
+                    <h2>{{ booking.room_name }}</h2>
+                </div>
+
+            </div>
+
+
+            <div class="confirmation-details">
+
+                <div class="summary-row">
+                    <span>Guest Name</span>
+                    <strong>{{ booking.guest_name }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Email Address</span>
+                    <strong>{{ booking.guest_email }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Check-in</span>
+                    <strong>{{ booking.checkin }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Check-out</span>
+                    <strong>{{ booking.checkout }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Guests</span>
+                    <strong>{{ booking.guests }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Duration</span>
+                    <strong>
+                        {{ nights }}
+                        {{ "Night" if nights == 1 else "Nights" }}
+                    </strong>
+                </div>
+
+                <div class="summary-total">
+
+                    <span>TOTAL STAY PRICE</span>
+
+                    <strong>
+                        ₹{{ "{:,}".format(total_price) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        {% if can_cancel %}
+
+            <section class="cancellation-panel">
+
+                <h2>Need to Cancel Your Stay?</h2>
+
+                <p>
+                    You may cancel this demonstration
+                    reservation before the scheduled
+                    check-in date.
+                </p>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('cancel_reservation') }}"
+                    onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token }}">
+
+                    <button type="submit"
+                            class="cancel-button">
+                        CANCEL RESERVATION
+                    </button>
+
+                </form>
+
+            </section>
+
+        {% elif booking.status == "cancelled" %}
+
+            <div class="cancelled-notice">
+                This reservation has been cancelled.
+                Its inventory is available for
+                other eligible bookings.
+            </div>
+
+        {% else %}
+
+            <div class="cancelled-notice">
+                Online cancellation is unavailable
+                on or after the check-in date.
+            </div>
+
+        {% endif %}
+
+        <div class="confirmation-actions">
+
+            <a href="{{ url_for('home') }}"
+               class="confirm-button">
+                RETURN TO HOMEPAGE →
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+        <strong>FALAKNUMA</strong>
+        <p>
+            INDEPENDENT EDUCATIONAL PROJECT ·
+            NOT AN OFFICIAL HOTEL BOOKING WEBSITE
+        </p>
+    </footer>
+
+</body>
+</html>

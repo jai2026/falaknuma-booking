@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Your Booking | Falaknuma</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/booking.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/manage_booking.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('home') }}" class="brand">
+            <span>THE GRAND HERITAGE</span>
+            <strong>FALAKNUMA</strong>
+            <small>PALACE · HYDERABAD</small>
+        </a>
+
+        <a href="{{ url_for('home') }}"
+           class="back-link">
+            ← BACK TO HOME
+        </a>
+
+    </header>
+
+
+    <section class="page-heading">
+
+        <span class="eyebrow">
+            ✦ YOUR RESERVATION ✦
+        </span>
+
+        <h1>
+            Manage Your <em>Royal Stay.</em>
+        </h1>
+
+        <p>
+            Retrieve your reservation using
+            your booking reference and email.
+        </p>
+
+    </section>
+
+
+    <main class="manage-container">
+
+        <section class="form-panel">
+
+            <span class="section-label">
+                RESERVATION LOOKUP
+            </span>
+
+            <h2>Find Your Booking</h2>
+
+            <p class="form-intro">
+                Enter the details used when making
+                your reservation.
+            </p>
+
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    <p class="error-message" role="alert">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST"
+                  action="{{ url_for('manage_booking') }}">
+
+                <input type="hidden"
+                       name="csrf_token"
+                       value="{{ csrf_token }}">
+
+                <div class="form-field">
+
+                    <label for="booking_reference">
+                        BOOKING REFERENCE
+                    </label>
+
+                    <input
+                        type="text"
+                        id="booking_reference"
+                        name="booking_reference"
+                        placeholder="FP-..."
+                        maxlength="50"
+                        autocomplete="off"
+                        required>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="guest_email">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="guest_email"
+                        name="guest_email"
+                        placeholder="Enter your booking email"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+                <button type="submit"
+                        class="confirm-button">
+                    FIND MY BOOKING →
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        <strong>FALAKNUMA</strong>
+        <p>
+            INDEPENDENT EDUCATIONAL PROJECT ·
+            NOT AN OFFICIAL HOTEL BOOKING WEBSITE
+        </p>
+    </footer>
+
+</body>
+</html>

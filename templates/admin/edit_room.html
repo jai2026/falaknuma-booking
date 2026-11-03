@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Edit Room | Falaknuma Admin</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="admin-body">
+
+    <aside class="sidebar">
+
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="sidebar-brand">
+            <small>THE GRAND HERITAGE</small>
+            <strong>FALAKNUMA</strong>
+            <small>ADMINISTRATION</small>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('admin.dashboard') }}">
+                ◈ Dashboard
+            </a>
+
+            <a href="{{ url_for('admin.reservations') }}">
+                ▤ Reservations
+            </a>
+
+            <a class="active"
+               href="{{ url_for('admin.rooms') }}">
+                ◇ Room Management
+            </a>
+        </nav>
+
+        <form method="POST"
+              action="{{ url_for('admin.logout') }}"
+              class="logout-form">
+
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token }}">
+
+            <button type="submit">
+                ↩ Sign Out
+            </button>
+        </form>
+
+    </aside>
+
+    <main class="admin-main">
+
+        <a href="{{ url_for('admin.rooms') }}"
+           class="text-link">
+            ← BACK TO ROOMS
+        </a>
+
+        <div class="topbar">
+            <div>
+                <span class="eyebrow">
+                    ROOM CONFIGURATION
+                </span>
+
+                <h1>Edit <em>{{ room.name }}.</em></h1>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="admin-notice" role="alert">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endwith %}
+
+        <div class="room-edit-layout">
+
+            <img
+                src="{{ url_for('static', filename=room.image) }}"
+                alt="{{ room.name }}"
+                class="room-edit-image">
+
+            <form
+                method="POST"
+                action="{{ url_for('admin.edit_room', room_id=room.id) }}"
+                class="room-edit-form">
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token }}">
+
+                <span class="eyebrow">
+                    {{ room.category }}
+                </span>
+
+                <h2>Room Details</h2>
+
+                <label for="price">
+                    NIGHTLY RATE (₹)
+                </label>
+
+                <input
+                    id="price"
+                    type="number"
+                    name="price"
+                    min="1"
+                    max="10000000"
+                    step="1"
+                    value="{{ room.price }}"
+                    required>
+
+                <label for="total_rooms">
+                    TOTAL ROOM UNITS
+                </label>
+
+                <input
+                    id="total_rooms"
+                    type="number"
+                    name="total_rooms"
+                    min="1"
+                    max="10000"
+                    step="1"
+                    value="{{ room.total_rooms }}"
+                    required>
+
+                <p class="muted">
+                    Reducing inventory is blocked if
+                    it would conflict with confirmed
+                    overlapping reservations.
+                </p>
+
+                <button
+                    type="submit"
+                    class="primary-button">
+                    SAVE CHANGES →
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

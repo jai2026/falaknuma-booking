@@ -1,0 +1,96 @@
+/* ROYAL HERITAGE — CLEAN, SINGLE-SOURCE STYLESHEET */
+:root {
+  --royal-burgundy: #401b27;
+  --royal-gold: #b69a65;
+  --royal-ivory: #f8f5ef;
+  --royal-muted: #82776d;
+}
+
+/* Room collection heading on homepage */
+.heritage-collection-heading {
+  max-width: 760px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+.heritage-eyebrow, .palace-kicker {
+  display: block;
+  color: var(--royal-gold);
+  font: 600 11px/1.5 'DM Sans', sans-serif;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.heritage-heading {
+  margin: 14px 0;
+  color: var(--royal-burgundy);
+  font: 500 clamp(42px, 5vw, 66px)/1.1 'Cormorant Garamond', serif;
+}
+.heritage-heading em { color: #9e7b48; font-weight: 400; }
+.heritage-divider { width: 58px; height: 1px; margin: 20px auto; background: var(--royal-gold); }
+.heritage-copy { max-width: 560px; margin: 0 auto; color: var(--royal-muted); font-size: 14px; line-height: 1.85; }
+
+/* Room details — retained for templates/room_details.html */
+.heritage-room-highlights { display: flex; flex-wrap: wrap; gap: 12px; margin: 25px 0; }
+.heritage-room-highlight { padding: 11px 16px; border: 1px solid #dfd5c6; background: #fffdf9; color: var(--royal-burgundy); font-size: 12px; }
+.heritage-room-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 40px 0; }
+.heritage-room-gallery img { display: block; width: 100%; height: auto; object-fit: contain; }
+.heritage-room-gallery img:first-child { grid-column: 1 / -1; }
+
+/* Optional reveal animation */
+.heritage-reveal { opacity: 1; transform: none; }
+
+/* HERITAGE SHOWCASE — exactly one layout */
+#heritage.palace-showcase {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  padding: 88px 7%;
+  background: #351c25;
+  color: #faf5ed;
+}
+#heritage.palace-showcase *, #experiences.palace-gallery * { box-sizing: border-box; }
+#heritage .palace-showcase-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 90px);
+  align-items: center;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+#heritage .palace-showcase-copy { min-width: 0; }
+#heritage .palace-showcase-copy h2 {
+  margin: 18px 0 22px;
+  color: #faf5ed;
+  font: 500 clamp(44px, 5vw, 72px)/1.08 'Cormorant Garamond', serif;
+}
+#heritage .palace-showcase-copy h2 em { display: block; color: #d6b889; font-weight: 400; }
+#heritage .palace-rule { width: 60px; height: 1px; margin: 0 0 26px; background: #d6b889; }
+#heritage .palace-showcase-copy p { max-width: 420px; margin: 0 0 24px; color: #e2d5cd; font: 400 14px/1.9 'DM Sans', sans-serif; }
+#heritage .palace-cta {
+  display: inline-flex; align-items: center; gap: 22px;
+  padding: 12px 0; border-bottom: 1px solid #d6b889;
+  color: #faf5ed; font-size: 11px; letter-spacing: 1.7px;
+  text-decoration: none;
+}
+#heritage .palace-cta:hover { color: #e5c89d; }
+#heritage .palace-showcase-media {
+  display: flex; justify-content: center; align-items: center;
+  width: 100%; min-width: 0; margin: 0; padding: 0;
+  background: transparent; border: 0; box-shadow: none;
+}
+#heritage .palace-showcase-media img {
+  display: block; width: 100%; height: auto;
+  max-height: 450px; min-height: 0;
+  object-fit: contain; object-position: center;
+  border: 0; border-radius: 2px; box-shadow: none; transform: none;
+}
+
+/* THREE-PHOTO GALLERY — natural ratios, no cards/captions */
+#experiences.palace-gallery {
+  display: block;
+  width: 100%; min-height: 0;
+  padding: 84px 7% 100px;
+  background: #f8f5ef;
+  color: #401b27;
+}
+#experiences .palace-gallery-header { max-width: 700px; margin: 0 auto 40px; text-align: center; }
+#experiences .palace-gallery-header h2}

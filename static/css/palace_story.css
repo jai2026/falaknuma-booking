@@ -1,0 +1,172 @@
+
+/* ==========================================
+   FALAKNUMA — PREMIUM HERITAGE STORY
+   ========================================== */
+
+#heritage.fp-story {
+    display: block;
+    width: 100%;
+    padding: 110px 6%;
+    background: #f8f5ef;
+    box-sizing: border-box;
+}
+
+#heritage.fp-story *,
+#heritage.fp-story *::before,
+#heritage.fp-story *::after {
+    box-sizing: border-box;
+}
+
+#heritage .fp-story-container {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: clamp(50px, 7vw, 110px);
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+/* TEXT */
+
+#heritage .fp-story-content {
+    min-width: 0;
+}
+
+#heritage .fp-story-label {
+    display: block;
+    color: #a07e50;
+    font-family: "DM Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+#heritage .fp-story-content h2 {
+    margin: 25px 0 0;
+    color: #492433;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(48px, 5vw, 76px);
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -1px;
+}
+
+#heritage .fp-story-content h2 em {
+    display: block;
+    color: #a78759;
+    font-weight: 400;
+}
+
+#heritage .fp-story-line {
+    width: 65px;
+    height: 1px;
+    margin: 32px 0;
+    background: #b59a6c;
+}
+
+#heritage .fp-story-lead {
+    margin: 0 0 18px;
+    color: #492433;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+#heritage .fp-story-description {
+    max-width: 450px;
+    margin: 0;
+    color: #716961;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+}
+
+#heritage .fp-story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 34px;
+    padding: 14px 0;
+    border-bottom: 1px solid #a78759;
+    color: #492433;
+    font-family: "DM Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+#heritage .fp-story-link:hover {
+    color: #a78759;
+}
+
+/* SINGLE IMAGE — FULL ASPECT RATIO */
+
+#heritage .fp-story-photo {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 14px;
+    background: #fffdf9;
+    box-shadow: 0 18px 55px rgba(45, 30, 25, 0.10);
+}
+
+#heritage .fp-story-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 460px;
+    min-height: 0;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+}
+
+/* TABLET */
+
+@media (max-width: 850px) {
+
+    #heritage.fp-story {
+        padding: 75px 6%;
+    }
+
+    #heritage .fp-story-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    #heritage .fp-story-photo {
+        max-width: 650px;
+        margin: 0 auto;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+    #heritage.fp-story {
+        padding: 60px 5%;
+    }
+
+    #heritage .fp-story-content h2 {
+        font-size: 48px;
+    }
+
+    #heritage .fp-story-photo {
+        padding: 8px;
+    }
+}
+/* ADMIN NAVIGATION LINK */
+
+.nav-links .admin-nav-link {
+    color: #d6b67c;
+    font-weight: 600;
+}
+
+.nav-links .admin-nav-link:hover {
+    color: #ffffff;
+}

@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Explore heritage-inspired luxury rooms and suites at Falaknuma Palace, an independent educational hotel booking project.">
+
+    <title>{{ room.name }} | Falaknuma Palace</title>
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- EXISTING ROOM CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/room_details.css') }}">
+
+    <!-- PHASE 8 HERITAGE UPGRADE -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/heritage_upgrade.css') }}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="room-navbar">
+
+        <a href="{{ url_for('home') }}"
+           class="brand">
+
+            <span>THE GRAND HERITAGE</span>
+
+            <strong>FALAKNUMA</strong>
+
+            <small>PALACE · HYDERABAD</small>
+
+        </a>
+
+        <a href="{{ url_for('home') }}#rooms"
+           class="back-link">
+
+            ← ALL ROOMS
+
+        </a>
+
+    </header>
+
+
+    <!-- BREADCRUMB -->
+
+    <nav class="breadcrumb"
+         aria-label="Breadcrumb">
+
+        <a href="{{ url_for('home') }}">
+            HOME
+        </a>
+
+        <span>/</span>
+
+        <a href="{{ url_for('home') }}#rooms">
+            ROOMS & SUITES
+        </a>
+
+        <span>/</span>
+
+        <span>{{ room.name|upper }}</span>
+
+    </nav>
+
+
+    <!-- ROOM HEADER -->
+
+    <section class="room-heading">
+
+        <span class="eyebrow">
+            {{ room.category }}
+        </span>
+
+        <h1>{{ room.name }}</h1>
+
+        <p>
+            A private sanctuary of timeless elegance
+            and exceptional comfort.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN ROOM IMAGE -->
+
+    <section class="room-hero">
+
+        <img
+            src="{{ url_for('static', filename=room.image) }}"
+            alt="{{ room.name }} interior"
+            fetchpriority="high">
+
+        <div class="image-label">
+            THE ART OF ROYAL LIVING
+        </div>
+
+    </section>
+
+
+    <!-- ROOM INFORMATION -->
+
+    <section class="room-content">
+
+        <div class="room-main">
+
+            <div class="heritage-reveal">
+
+                <span class="section-label">
+                    01 — YOUR ACCOMMODATION
+                </span>
+
+                <h2>
+                    An experience
+                    <em>unlike any other.</em>
+                </h2>
+
+                <!-- DATABASE ROOM DESCRIPTION -->
+
+                <p class="description">
+                    {{ room.description }}
+                </p>
+
+                <div class="heritage-divider"></div>
+
+            </div>
+
+
+            <!-- PREMIUM ROOM HIGHLIGHTS -->
+
+            <div class="heritage-room-highlights heritage-reveal">
+
+                <span class="heritage-room-highlight">
+                    ◇ Up to {{ room.guests }} Guests
+                </span>
+
+                <span class="heritage-room-highlight">
+                    ◇ {{ room.size }}
+                </span>
+
+                <span class="heritage-room-highlight">
+                    ◇ {{ room.bed }}
+                </span>
+
+                <span class="heritage-room-highlight">
+                    ◇ Heritage Collection
+                </span>
+
+            </div>
+
+
+            <!-- EXISTING ROOM FEATURES -->
+
+            <div class="room-features heritage-reveal">
+
+                <div>
+
+                    <span>GUEST CAPACITY</span>
+
+                    <strong>
+                        Up to {{ room.guests }} Guests
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>ROOM SIZE</span>
+
+                    <strong>
+                        {{ room.size }}
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>BED TYPE</span>
+
+                    <strong>
+                        {{ room.bed }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- AMENITIES -->
+
+            <div class="amenities-section heritage-reveal">
+
+                <span class="section-label">
+                    02 — THOUGHTFUL COMFORTS
+                </span>
+
+                <h2>
+                    The finer <em>details.</em>
+                </h2>
+
+                <p class="heritage-copy">
+                    Every element has been thoughtfully
+                    selected to complement your
+                    heritage-inspired stay.
+                </p>
+
+                <div class="amenities-grid">
+
+                    {% for amenity in room.amenities %}
+
+                    <div class="amenity">
+
+                        <span class="amenity-icon"
+                              aria-hidden="true">
+                            ✧
+                        </span>
+
+                        <span>
+                            {{ amenity }}
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOKING CARD -->
+
+        <aside class="booking-card">
+
+            <span class="booking-label">
+                YOUR ROYAL ESCAPE
+            </span>
+
+            <h3>
+                Reserve your
+                <em>experience.</em>
+            </h3>
+
+            <div class="price-block">
+
+                <span>
+                    STARTING FROM
+                </span>
+
+                <div class="price">
+                    ₹{{ "{:,}".format(room.price) }}
+                </div>
+
+                <small>
+                    PER NIGHT · DEMO RATE
+                </small>
+
+            </div>
+
+            <div class="booking-note">
+
+                <span aria-hidden="true">
+                    ✦
+                </span>
+
+                <p>
+                    Discover the elegance of royal
+                    living. Select your preferred
+                    dates to begin planning your stay.
+                </p>
+
+            </div>
+
+            <!-- PRESERVE EXISTING BOOKING FLOW -->
+
+            <a href="{{ url_for('home') }}#reservation"
+               class="reserve-button">
+
+                CHECK AVAILABILITY
+
+                <span aria-hidden="true">
+                    →
+                </span>
+
+            </a>
+
+            <p class="booking-disclaimer">
+                Reservations are available in this
+                educational demonstration.
+                No real hotel booking or payment
+                is processed.
+            </p>
+
+        </aside>
+
+    </section>
+
+
+    <!-- BOTTOM SECTION -->
+
+    <section class="bottom-banner">
+
+        <span>
+            THE GRAND HERITAGE
+        </span>
+
+        <h2>
+            Every stay tells
+            <em>a story.</em>
+        </h2>
+
+        <a href="{{ url_for('home') }}#rooms">
+            EXPLORE OTHER ROOMS →
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="room-footer">
+
+        <div>
+
+            <strong>
+                FALAKNUMA
+            </strong>
+
+            <span>
+                PALACE · HYDERABAD
+            </span>
+
+        </div>
+
+        <p>
+            © 2026 FALAKNUMA —
+            INDEPENDENT EDUCATIONAL PROJECT
+        </p>
+
+    </footer>
+
+
+    <!-- PHASE 8 SCROLL ANIMATIONS -->
+
+    <script defer
+            src="{{ url_for('static', filename='js/heritage-upgrade.js') }}">
+    </script>
+
+</body>
+</html>
